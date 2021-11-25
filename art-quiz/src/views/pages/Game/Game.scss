@@ -221,7 +221,10 @@ $false:url("../../../assets/falseCircle.png");
   background-color: grey;
   border-radius: 100%;
   &.active{
-    background-color: #FFBCA2;
+    background-color: greenyellow;
+  }
+  &.inactive{
+    background-color: red;
   }
 }
 

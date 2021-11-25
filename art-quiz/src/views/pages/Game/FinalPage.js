@@ -23,15 +23,28 @@ class FinalPage extends Component{
 
   render(){
     let parsed = JSON.parse(window.localStorage.getItem("parsed"));
-    let currMas = []
+    let res = JSON.parse(window.localStorage.getItem("results"));
+    let currMas = [];
+    let currRes = 0;
     if(parsed["source"] == "author")
-      currMas = this.imagesSubarray[parsed["number"]];
+      {
+        currRes = res["author"][parsed["number"]];
+        currMas = this.imagesSubarray[parsed["number"]];
+     }
+
     else
-      currMas = this.imagesSubarray2[parsed["number"]];
+      {
+        currRes = res["picture"][parsed["number"]];
+        currMas = this.imagesSubarray2[parsed["number"]];
+      }
+      const finalResult = document.createElement("div");
+      finalResult.innerText = "Final result : " + currRes;
+      document.querySelector('main').append(finalResult);
     this.trueMas = JSON.parse(window.localStorage.getItem("answers"));
     currMas.forEach((el,index) => {
       console.log(this.trueMas[index]);
       const tmpElements = new FinalPicture(this.trueMas[index],el.imageNum,el.name,el.author,el.year);
+
       this.container.append(tmpElements.render());
     })
 

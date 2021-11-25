@@ -15,7 +15,7 @@ function countNums(mas, val) {
 
 function randomInteger(min, max, curr) {
   let rand = min - 0.5 + Math.random() * (max - min + 1);
-  return Math.round(rand) != curr
+  return  !curr.includes(Math.round(rand))
     ? Math.round(rand)
     : randomInteger(min, max, curr);
 }
@@ -23,12 +23,18 @@ function randomInteger(min, max, curr) {
 class Listing extends Component {
   constructor(container = 'div', className = 'picture-listing') {
     super(container, className);
+    this.conf = window.localStorage.getItem("answer")
   }
-  render(number, done) {
+  render(number, done,answers) {
     for (let i = 0; i < number; i++) {
       const tmpEl = document.createElement('div');
       let className = 'picture-list-btn';
-      done > i ? (className += ' active') : className;
+      if(done > i )
+      { if(answers[i] == true)
+        className += ' active';
+        else
+        className += ' inactive'
+      }
       tmpEl.className = className;
       this.container.append(tmpEl);
     }
@@ -178,9 +184,9 @@ class Game {
     this.tempArr = tempArr;
     let randomNums = [];
     for (let i = 0; i < 3; i++) {
-      randomNums.push(randomInteger(0, 19, this.currPicture));
+      randomNums.push(randomInteger(0, 19, [this.currPicture,...randomNums]));
     }
-    let rightPicture = randomInteger(0, 2, -1);
+    let rightPicture = randomInteger(0, 2, []);
     const container = document.createElement('div');
     const questionCont = document.createElement('div');
     const pictureCont = document.createElement('div');
@@ -230,7 +236,7 @@ class Game {
         }.jpg")`
       );
       const listing = new Listing();
-      bigPicture.append(listing.render(20, this.currPicture + 1));
+      bigPicture.append(listing.render(20, this.currPicture, this.answer));
       randomNums.forEach((el, index) => {
         if (index == rightPicture) {
           let rightEl = new AuthorToGuess(
