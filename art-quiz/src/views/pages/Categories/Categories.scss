@@ -1,0 +1,86 @@
+.categories{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 20px;
+  height: 80vh;
+  overflow: auto;
+}
+
+.categories::-webkit-scrollbar { width: 0; }
+
+.image-description{
+  width: 100%;
+  height: 100%;
+  background-color: #FFBCA2;
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  transition: all 0.5s ease-out;
+  color:black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.categories-image{
+  overflow: hidden;
+  &:hover{
+    .image-description{bottom: 0};
+  }
+}
+
+.categories-card.grey{
+  filter: grayscale(1);
+  transition: all 0.5s ease-in-out;
+  &:hover{
+    filter: grayscale(0);
+  }
+}
+
+.categories-card_info{
+  display: flex;
+  justify-content: space-between;
+}
+
+.categories-card_progress{
+  display: flex;
+}
+
+.categories-image-wrapper,.categories-image{
+  position: relative;
+  width: 210px;
+  height: 210px;
+  img{
+    width: 100%;
+    border-radius: 20px;
+    height: 100%;
+  }
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.categories-image-wrapper::after{
+  content: "Play again";
+  width: 100%;
+  height: 20%;
+  background-color: #FFBCA2;
+  color: black;
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -100%;
+  transition: all 0.3s ease-out;
+}
+
+.categories-image-wrapper:hover::after{
+ bottom: 0;
+}
+
