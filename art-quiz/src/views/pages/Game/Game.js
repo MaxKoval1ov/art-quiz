@@ -208,7 +208,7 @@ class Game {
     if (request.resource == 'picture') {
       container.className = 'which-picture';
       questionCont.innerText = `Какая картина написана вот этим автором -> ${
-        tempArr[randomNums[rightPicture]].author
+        tempArr[this.currPicture].author
       }?`;
       randomNums.forEach((el, index) => {
         if (index == rightPicture) {
